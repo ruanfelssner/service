@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  app:
+    image: node:latest
+    working_dir: /app
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+    volumes:
+      - ./app:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    env_file:
+      - .env  
+    networks:
+      - my-network
+
+  db:
+    image: mongo
+    command: mongod --bind_ip_all
+    ports:
+      - "27017:27017"    
+    networks:
+      - my-network
+
+  api:
+    image: node:latest
+    working_dir: /api
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+    volumes:
+      - ./api:/api
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    env_file:
+      - .env      
+    networks:
+      - my-network
+networks:
+  my-network:

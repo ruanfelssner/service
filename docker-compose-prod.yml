@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  app:
+    image: node:latest
+    working_dir: /app
+    environment:
+      - NODE_ENV=production
+    command: npm run start
+    volumes:
+      - ./app:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+
+  api:
+    image: node:latest
+    working_dir: /api
+    environment:
+      - NODE_ENV=production
+    command: npm run start
+    volumes:
+      - ./api:/api
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
