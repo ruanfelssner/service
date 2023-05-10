@@ -1,6 +1,5 @@
 const { decodeString } = require('./modules/decode');
 const net = require('net');
-const db = require('./config/database');
 
 const server = net.createServer((socket) => {
     console.log('Client connected');
@@ -9,7 +8,7 @@ const server = net.createServer((socket) => {
       console.log('--------- decode start --------- ')
       const decodedCode = decodeString(data)
       const connectDB = require('./config/database');
-      const {Car, CarHistory} = require('../api/models/Car')
+      const {Car, CarHistory} = require('./models/Car');
 
         connectDB().then(async() => {
           const car = await Car.findOne({ imei: decodedCode.imei })
