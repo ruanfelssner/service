@@ -2,6 +2,7 @@
 
 const { User, UserLogin } = require('../models/User')
 const { loginUser, getUserByGoogleAuthentication, getGoogleUserByGoogleAuthentication } = require('../commons/utils/users')
+const { ErrorsGoogleLogin } = require('../commons/enums/ErrorsGoogle')
 
 
 module.exports = (app) => {
@@ -104,14 +105,21 @@ module.exports = (app) => {
       return res.status(200).json(resp)
     }
     if(req.body.googleToken){
-      const user = await getUserByGoogleAuthentication(req.body.googleToken)
-      if(!user) {
+      try{
+        const user = await getUserByGoogleAuthentication(req.body.googleToken)
+        if(!user) {
+          return res.status(400).json({
+            message: 'User not found',
+          })
+        }
+        const resp = await loginUser(user._id, req)
+        return res.status(200).json(resp)
+      }
+      catch(err){
         return res.status(400).json({
-          message: 'User not found',
+          message: ErrorsGoogleLogin(err),
         })
       }
-      const resp = await loginUser(user._id, req)
-      return res.status(200).json(resp)
     }
   }
 

@@ -18,6 +18,23 @@ services:
     networks:
       - my-network
 
+  socket:
+    image: node:latest
+    working_dir: /socket
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+    volumes:
+      - ./socket:/socket
+    ports:
+      - "8383:8383"
+    depends_on:
+      - db
+    env_file:
+      - .env  
+    networks:
+      - my-network
+
   db:
     image: mongo
     command: mongod --bind_ip_all

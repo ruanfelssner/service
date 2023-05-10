@@ -69,6 +69,7 @@ const getUserByGoogleAuthentication = async (credential) => {
     idToken: credential,
     audience: GOOGLE_CLIENT_ID,
   });
+  console.log(ticket, 'ticket')
   const payload = ticket.getPayload();
   const googleUserId = payload["sub"];
 
