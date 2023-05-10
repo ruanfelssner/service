@@ -13,7 +13,7 @@ const server = net.createServer((socket) => {
         connectDB().then(async() => {
           const car = await Car.findOne({ imei: decodedCode.imei })
           if(car){
-            const newCarHistory = new CarHistory({ carId: car.id, latLng: decodedCode.latLng, createdAt: decodedCode.createdAt });
+            const newCarHistory = new CarHistory({ carId: car.id, latLng: decodedCode.latLng, createdAt: new Date() });
             await newCarHistory.save();
             console.log("Localização do carro cadastrada com sucesso")
           }
