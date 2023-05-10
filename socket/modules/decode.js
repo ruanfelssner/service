@@ -53,11 +53,12 @@ const decodeString = (val) => {
   
   
     let objReturn = {
-      localizacao: {
+      imei: messageParts[1].trim(),
+      latLng: {
         lat: latitude,
         lng: longitude,
       },
-      data: datetime,
+      createdAt: datetime,
       velocidade: velo,
       sinal: messageParts[11].trim(),
       // altitude: messageParts[15].trim(),

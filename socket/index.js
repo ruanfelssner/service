@@ -6,14 +6,30 @@ const server = net.createServer((socket) => {
     console.log('Client connected');
     socket.on('data', (data) => {
       try{
-        console.log('--------- decode start --------- ')
-      console.log(decodeString(data))
+      console.log('--------- decode start --------- ')
+      const decodedCode = decodeString(data)
+      const connectDB = require('./config/database');
+      const {Car, CarHistory} = require('../api/models/Car')
+
+        connectDB().then(async() => {
+          const car = await Car.findOne({ imei: decodedCode.imei })
+          if(car){
+            const newCarHistory = new CarHistory({ carId: car.id, latLng: decodedCode.latLng, createdAt: decodedCode.createdAt });
+            await carHistory.save();
+            console.log("Localização do carro cadastrada com sucesso")
+          }
+          else{
+            console.log("Erro ao cadastrar localização do carro")
+          }
+        }).catch((err) => {
+          console.log('Erro ao conectar ao MongoDB:', err);
+        });
+
+      console.log()
       console.log('--------- decode end --------- ')
       }
       catch(e){
-        console.log('--------- decode error --------- ')
         console.log(e)
-        console.log('--------- decode error --------- ')
       }
     })
     socket.on('end', () => {
