@@ -24,7 +24,6 @@ const server = net.createServer((socket) => {
           console.log('Erro ao conectar ao MongoDB:', err);
         });
 
-      console.log()
       console.log('--------- decode end --------- ')
       }
       catch(e){

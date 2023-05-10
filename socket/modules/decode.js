@@ -49,8 +49,7 @@ const decodeString = (val) => {
     const velocidade = messageParts[8].trim();
     const vel = parseInt(velocidade, 16);
     const velo = vel / 100;
-    const datetime = `${a1}-${m1.toString().padStart(2, '0')}-${d1.toString().padStart(2, '0')}T${(h1 - 3).toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}:${s1.toString().padStart(2, '0')}`;
-  
+    const datetime = new Date(Date.UTC(a1, m1 - 1, d1, h1 - 3, min, s1, 768)).toISOString();    
   
     let objReturn = {
       imei: messageParts[1].trim(),
