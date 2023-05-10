@@ -22,11 +22,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo yum update -y
-          sudo amazon-linux-extras install docker
-          sudo systemctl start docker
-          sudo usermod -a -G docker ec2-user
-          sudo yum install -y docker-compose
+          sudo apt-get update -y
+          sudo apt-get install -y docker.io docker-compose
 
       - name: SSH into EC2 instance
         uses: appleboy/ssh-action@master
