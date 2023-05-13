@@ -4,6 +4,7 @@ module.exports = (app, db) => {
     app.route('/cars/registerHistory').post(controller.registerHistory)
     app.route('/cars/getCars').get(controller.getCars)
     app.route('/cars/getCarHistory/:imei').get(controller.getCarHistory)
+    app.route('/cars/getCarHistoryAll').get(controller.getCarHistoryAll)
     app.route('/cars/getCarHistoryByDate/:imei').get(controller.getCarHistoryByDate)
     
 };

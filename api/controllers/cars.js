@@ -62,6 +62,17 @@ module.exports = (app) => {
             return res.status(500).json(e)
         }
     }
+    controller.getCarHistoryAll = async (req, res) => {
+        try {
+          const carHistory = await CarHistory.find().sort({ createdAt: -1 })
+          .limit(3);
+          return res.status(200).json(carHistory)
+        } catch (e) {
+          console.error(e)
+          return res.status(500).json(e)
+        }
+      }
+      
     controller.getCarHistoryByDate = async (req, res) => {
         const { imei } = req.params
         const { date } = req.query
@@ -70,7 +81,7 @@ module.exports = (app) => {
             if(!car) {
                 return res.status(404).json({ message: 'Car not found' })
             }
-            const carHistory = await CarHistory.findAll({ where: { carId: car.id, createdAt: date } })
+            const carHistory = await CarHistory.find({ where: { carId: car.id, createdAt: date } })
             return res.status(200).json(carHistory)
         }
         catch(e) {

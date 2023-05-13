@@ -10,7 +10,7 @@ services:
     volumes:
       - ./app:/app
     ports:
-      - "3000:3000"
+      - "3300:3000"
     depends_on:
       - api
     env_file:

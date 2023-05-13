@@ -3,6 +3,9 @@ require('dotenv').config()
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
 
+  target: 'static',
+  ssr: false,
+
   head: {
     title: process.env.PROJECT_NAME,
     meta: [
@@ -41,6 +44,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    // outros plugins
+    { src: '~plugins/google-maps.js' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -76,5 +81,18 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extend (config, { isDev, isClient }) {
+      config.module.rules.push({
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /(node_modules)/,
+        options: {
+          presets: [
+            ['@babel/preset-env', { targets: { node: 'current' } }]
+          ]
+        }
+      })
+    }
   }
+
 }
