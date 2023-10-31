@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    image: node:latest
+    image: node:18.16.0-alpine
     working_dir: /app
     environment:
       - NODE_ENV=development
@@ -19,7 +19,7 @@ services:
       - my-network
 
   socket:
-    image: node:latest
+    image: node:18.16.0-alpine
     working_dir: /socket
     environment:
       - NODE_ENV=development
@@ -38,13 +38,15 @@ services:
   db:
     image: mongo
     command: mongod --bind_ip_all
+    volumes:
+      - ./data/db:/data/db
     ports:
-      - "27017:27017"    
+      - "27018:27018"    
     networks:
       - my-network
 
   api:
-    image: node:latest
+    image: node:18.16.0-alpine
     working_dir: /api
     environment:
       - NODE_ENV=development
@@ -52,7 +54,7 @@ services:
     volumes:
       - ./api:/api
     ports:
-      - "4000:4000"
+      - "5000:5000"
     depends_on:
       - db
     env_file:
