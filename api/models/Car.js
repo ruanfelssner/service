@@ -30,7 +30,7 @@ const carHistorySchema = new mongoose.Schema({
     required: true,
   },
   latLng: {
-    type: String,
+    type: Object,
     required: true,
   },
   createdAt: {
