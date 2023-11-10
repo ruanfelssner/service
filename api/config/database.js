@@ -1,7 +1,13 @@
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
-  await mongoose.connect('mongodb://23.22.63.175:27017/'+process.env.DB_NAME, {
+  const dbHost = process.env.NODE_ENV === 'development' ? 'db' : 'localhost';
+  const dbPort = process.env.NODE_ENV === 'development' ? '27017' : '27017';
+
+  const dbName = process.env.DB_NAME;
+
+  const dbURL = `mongodb://${dbHost}:${dbPort}/${dbName}`;
+  await mongoose.connect(dbURL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     }).then(() => console.log('MongoDB Connected')
