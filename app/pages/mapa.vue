@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="services.length > 0">
     <gmap-map :zoom="14" :center="{lat: services[0].latLng.lng, lng: services[0].latLng.lat}" class="mapa mb-5">
       <gmap-marker
         v-for="(service, index) of services"
@@ -31,23 +31,23 @@ export default {
     this.getServices()
   },
   methods: {
-    async getServices () {
-      // setInterval(async () => {
-      this.message = 'Atualizando!'
-      await this.$axios.$get('http://3.208.92.213:5000/cars/getCarHistoryAll').then((response) => {
-        this.services = []
-        for (const item of response) {
-          this.services.push({
-            latLng: {
-              lat: item.latLng.lng,
-              lng: item.latLng.lat
-            }
-          })
-        }
-      })
-
-      this.message = ''
-      // }, 5000)
+    getServices () {
+      setInterval(async () => {
+        this.message = 'Atualizando!'
+        await this.$axios.$get('http://3.208.92.213:5000/cars/getCarHistoryAll').then((response) => {
+          this.services = []
+          for (const item of response) {
+            this.services.push({
+              createdAt: item.createdAt,
+              latLng: {
+                lat: item.latLng.lng,
+                lng: item.latLng.lat
+              }
+            })
+          }
+        })
+        this.message = ''
+      }, 5000)
     }
   }
 }

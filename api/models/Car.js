@@ -24,8 +24,9 @@ const carSchema = new mongoose.Schema({
 });
 
 const carHistorySchema = new mongoose.Schema({
-  imei: {
-    type: String,
+  car: {
+    type: ObjectId,
+    ref: 'Car',
     required: true,
   },
   latLng: {
