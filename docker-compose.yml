@@ -6,7 +6,7 @@ services:
     working_dir: /app
     environment:
       - NODE_ENV=development
-    command: npm run dev
+    command: npm run start
     volumes:
       - ./app:/app
     ports:
@@ -23,7 +23,7 @@ services:
     working_dir: /socket
     environment:
       - NODE_ENV=development
-    command: npm run dev
+    command: npm run start
     volumes:
       - ./socket:/socket
     ports:
@@ -50,7 +50,7 @@ services:
     working_dir: /api
     environment:
       - NODE_ENV=development
-    command: npm run dev
+    command: npm run start
     volumes:
       - ./api:/api
     ports:

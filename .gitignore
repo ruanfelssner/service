@@ -93,3 +93,4 @@ sw.*
 /app/node_modules
 /app/.nuxt
 /api/node_modules
+/data/
