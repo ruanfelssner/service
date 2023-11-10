@@ -1,22 +1,22 @@
 version: '3'
 
 services:
-  app:
-    image: node:18.16.0-alpine
-    working_dir: /app
-    environment:
-      - NODE_ENV=development
-    command: npm run start
-    volumes:
-      - ./app:/app
-    ports:
-      - "3300:3000"
-    depends_on:
-      - api
-    env_file:
-      - .env  
-    networks:
-      - my-network
+  # app:
+  #   image: node:18.16.0-alpine
+  #   working_dir: /app
+  #   environment:
+  #     - NODE_ENV=development
+  #   command: npm run start
+  #   volumes:
+  #     - ./app:/app
+  #   ports:
+  #     - "3300:3000"
+  #   depends_on:
+  #     - api
+  #   env_file:
+  #     - .env  
+  #   networks:
+  #     - my-network
 
   socket:
     image: node:18.16.0-alpine

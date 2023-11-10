@@ -5,6 +5,9 @@ const server = net.createServer((socket) => {
     console.log('Client connected');
     socket.on('data', (data) => {
       try{
+      if(data){
+        new Error('Data is empty')
+      }
       console.log('--------- decode start --------- ')
       const decodedCode = decodeString(data)
       const connectDB = require('./config/database');
