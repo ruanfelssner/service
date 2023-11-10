@@ -8,10 +8,11 @@ const server = net.createServer((socket) => {
       if(data){
         new Error('Data is empty')
       }
-      console.log('--------- decode start --------- ')
       const decodedCode = decodeString(data)
       const connectDB = require('./config/database');
       const {Car, CarHistory} = require('./models/Car');
+
+      console.log(decodedCode)
 
         connectDB().then(async() => {
           const car = await Car.findOne({ imei: decodedCode.imei })

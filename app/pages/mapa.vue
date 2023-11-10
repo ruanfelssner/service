@@ -18,8 +18,8 @@ export default {
         {
           createdAt: 'Servicio 1',
           latLng: {
-            lng: -25.428526666666667,
-            lat: -49.05300166666667
+            lng: -25.363545,
+            lat: -49.210115
           }
         }
       ],
@@ -31,24 +31,23 @@ export default {
     this.getServices()
   },
   methods: {
-    getServices () {
-      setInterval(async () => {
-        this.message = 'Atualizando!'
-        await this.$axios.$get('http://localhost:4000/cars/getCarHistoryAll').then((response) => {
-          this.services = []
-          for (const item of response) {
-            this.services.push({
-              createdAt: item.createdAt,
-              latLng: {
-                lat: item.latLng.lng,
-                lng: item.latLng.lat
-              }
-            })
-          }
-        })
+    async getServices () {
+      // setInterval(async () => {
+      this.message = 'Atualizando!'
+      await this.$axios.$get('http://3.208.92.213:5000/cars/getCarHistoryAll').then((response) => {
+        this.services = []
+        for (const item of response) {
+          this.services.push({
+            latLng: {
+              lat: item.latLng.lng,
+              lng: item.latLng.lat
+            }
+          })
+        }
+      })
 
-        this.message = ''
-      }, 3000)
+      this.message = ''
+      // }, 5000)
     }
   }
 }

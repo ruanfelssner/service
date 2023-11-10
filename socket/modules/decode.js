@@ -1,7 +1,6 @@
 
 
 const decodeString = (val) => {
-    console.log(val.toString('utf8'))
     const messageParts = val.toString('utf8').split(',');
     const dataHex = messageParts[4].trim();
     const horaHex = messageParts[5].trim();
